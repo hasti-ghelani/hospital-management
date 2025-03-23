@@ -329,7 +329,7 @@ if(isset($_POST['docsub1']))
                   <?php 
                     $con=mysqli_connect("localhost","root","","myhmsdb");
                     global $con;
-                    $query = "select * from patreg ORDER BY pid DESC;";
+                    $query = "select * from patreg";
                     $result = mysqli_query($con,$query);
                     while ($row = mysqli_fetch_array($result)){
                       $pid = $row['pid'];
@@ -392,7 +392,7 @@ if(isset($_POST['docsub1']))
                   <?php 
                     $con=mysqli_connect("localhost","root","","myhmsdb");
                     global $con;
-                    $query = "select * from prestb ORDER BY pid DESC;";
+                    $query = "select * from prestb";
                     $result = mysqli_query($con,$query);
                     while ($row = mysqli_fetch_array($result)){
                       $doctor = $row['doctor'];
@@ -469,7 +469,7 @@ if(isset($_POST['docsub1']))
                     $con=mysqli_connect("localhost","root","","myhmsdb");
                     global $con;
 
-                    $query = "select * from appointmenttb ORDER BY id DESC;";
+                    $query = "select * from appointmenttb;";
                     $result = mysqli_query($con,$query);
                     while ($row = mysqli_fetch_array($result)){
                   ?>

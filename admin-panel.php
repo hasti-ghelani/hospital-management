@@ -11,6 +11,7 @@ $email = $_SESSION['email'];
 $fname = $_SESSION['fname'];
 $gender = $_SESSION['gender'];
 $lname = $_SESSION['lname'];
+$contact = $_SESSION['contact'];
 
 
 
@@ -24,7 +25,7 @@ if (isset($_POST['app-submit'])) {
   $contact = $_SESSION['contact'];
   $doctor = $_POST['doctor'];
   $email = $_SESSION['email'];
-   # $fees=$_POST['fees'];
+  # $fees=$_POST['fees'];
   $docFees = $_POST['docFees'];
 
   $appdate = $_POST['appdate'];
@@ -74,7 +75,7 @@ function generate_bill()
   $con = mysqli_connect("localhost", "root", "", "myhmsdb");
   $pid = $_SESSION['pid'];
   $output = '';
-  $query = mysqli_query($con, "select p.pid,p.ID,p.fname,p.lname,p.doctor,p.appdate,p.apptime,p.drugname1,p.route1,p.frequencytime1,p.quantity1,p.drugname2,p.route2,p.frequencytime2,p.quantity2,p.drugname3,p.route3,p.frequencytime3,p.quantity3,p.price,a.docFees from prestb p inner join appointmenttb a on p.ID=a.ID and p.pid = '$pid' and p.ID = '" . $_GET['ID'] . "'");
+  $query = mysqli_query($con, "select p.pid,p.ID,p.fname,p.lname,p.doctor,p.appdate,p.apptime,p.drugname,p.route,p.frequencytime,p.quantity,p.price,a.docFees from prestb p inner join appointmenttb a on p.ID=a.ID and p.pid = '$pid' and p.ID = '" . $_GET['ID'] . "'");
   while ($row = mysqli_fetch_array($query)) {
     $output .= '
     <label> Patient ID : </label>' . $row["pid"] . '<br/><br/>
@@ -83,24 +84,12 @@ function generate_bill()
     <label> Doctor Name : </label>' . $row["doctor"] . '<br/><br/>
     <label> Appointment Date : </label>' . $row["appdate"] . '<br/><br/>
     <label> Appointment Time : </label>' . $row["apptime"] . '<br/><br/>
-    <label> Drugname1 : </label>' . $row["drugname1"] . '<br/><br/>
-    <label> Drugname2 : </label>' . $row["drugname2"] . '<br/><br/>
-    <label> Drugname3 : </label>' . $row["drugname3"] . '<br/><br/>
-
-    <label> Route1 : </label>' . $row["route1"] . '<br/><br/>
-    <label> Route2 : </label>' . $row["route2"] . '<br/><br/>
-    <label> Route3 : </label>' . $row["route3"] . '<br/><br/>
-
-    <label> Frequency Time1 : </label>' . $row["frequencytime1"] . '<br/><br/>
-    <label> Frequency Time2 : </label>' . $row["frequencytime2"] . '<br/><br/>
-    <label> Frequency Time3 : </label>' . $row["frequencytime3"] . '<br/><br/>
-
-    <label> Quantity1 : </label>' . $row["quantity1"] . '<br/><br/>
-        <label> Quantity2 : </label>' . $row["quantity2"] . '<br/><br/>
-    <label> Quantity3 : </label>' . $row["quantity3"] . '<br/><br/>
-
+    <label> Drugname : </label>' . $row["drugname"] . '<br/><br/>
+    <label> Route : </label>' . $row["route"] . '<br/><br/>
+    <label> Frequency Time : </label>' . $row["frequencytime"] . '<br/><br/>
+    <label> Quantity : </label>' . $row["quantity"] . '<br/><br/>
     <label> Price : </label>' . $row["price"] . '<br/><br/>
-    
+
     <label> Fees Paid : </label>' . $row["docFees"] . '<br/>
     
     ';
@@ -554,7 +543,7 @@ function get_specs()
                 $con = mysqli_connect("localhost", "root", "", "myhmsdb");
                 global $con;
 
-                $query = "select doctor,ID,appdate,apptime,drugname1,route1,frequencytime1,quantity1,drugname2,route2,frequencytime2,quantity2,drugname3,route3,frequencytime3,quantity3,price from prestb where pid='$pid';";
+                $query = "select doctor,ID,appdate,apptime,drugname,route,frequencytime,quantity,price from prestb where pid='$pid';";
 
                 $result = mysqli_query($con, $query);
                 if (!$result) {
@@ -569,18 +558,10 @@ function get_specs()
                     <td><?php echo $row['ID']; ?></td>
                     <td><?php echo $row['appdate']; ?></td>
                     <td><?php echo $row['apptime']; ?></td>
-                    <td><?php echo $row['drugname1']; ?></td>
-                    <td><?php echo $row['route1']; ?></td>
-                    <td><?php echo $row['frequencytime1']; ?></td>
-                    <td><?php echo $row['quantity1']; ?></td>
-                    <td><?php echo $row['drugname2']; ?></td>
-                    <td><?php echo $row['route2']; ?></td>
-                    <td><?php echo $row['frequencytime2']; ?></td>
-                    <td><?php echo $row['quantity2']; ?></td>
-                    <td><?php echo $row['drugname3']; ?></td>
-                    <td><?php echo $row['route3']; ?></td>
-                    <td><?php echo $row['frequencytime3']; ?></td>
-                    <td><?php echo $row['quantity3']; ?></td>
+                    <td><?php echo $row['drugname']; ?></td>
+                    <td><?php echo $row['route']; ?></td>
+                    <td><?php echo $row['frequencytime']; ?></td>
+                    <td><?php echo $row['quantity']; ?></td>
                     <td><?php echo $row['price']; ?></td>
 
                     <td>
